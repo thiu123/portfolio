@@ -30,10 +30,10 @@ export default function Contact() {
   }
 
   return (
-    <section id="contact" className="py-20 px-4 sm:px-6 lg:px-8 bg-muted/50">
+    <section id="contact" className="py-20 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-16">
-          <h2 className="text-3xl sm:text-4xl font-bold mb-4">Get In Touch</h2>
+          <h2 className="text-3xl sm:text-4xl font-bold mb-4 bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">Get In Touch</h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Have a project in mind or want to collaborate? I'd love to hear from you!
           </p>
@@ -52,21 +52,21 @@ export default function Contact() {
                 <Mail className="h-5 w-5 text-blue-600 mr-4" />
                 <div>
                   <div className="font-medium">Email</div>
-                  <div className="text-muted-foreground">john.doe@example.com</div>
+                  <div className="text-muted-foreground">nhokhieukute2004@gmail.com</div>
                 </div>
               </div>
               <div className="flex items-center">
                 <Phone className="h-5 w-5 text-green-600 mr-4" />
                 <div>
                   <div className="font-medium">Phone</div>
-                  <div className="text-muted-foreground">+1 (555) 123-4567</div>
+                  <div className="text-muted-foreground">+84 971 450 800</div>
                 </div>
               </div>
               <div className="flex items-center">
                 <MapPin className="h-5 w-5 text-red-600 mr-4" />
                 <div>
                   <div className="font-medium">Location</div>
-                  <div className="text-muted-foreground">San Francisco, CA</div>
+                  <div className="text-muted-foreground">Ho Chi Minh City, Vietnam</div>
                 </div>
               </div>
             </div>

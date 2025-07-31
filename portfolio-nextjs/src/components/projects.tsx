@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge"
 import { ExternalLink, Github } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
+import SectionWrapper from "./section-wrapper"
 
 export default function Projects() {
   const projects = [
@@ -61,10 +62,10 @@ export default function Projects() {
   ]
 
   return (
-    <section id="projects" className="py-20 px-4 sm:px-6 lg:px-8">
+    <SectionWrapper className="py-20 px-4 sm:px-6 lg:px-8" id="projects">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-16">
-          <h2 className="text-3xl sm:text-4xl font-bold mb-4">Featured Projects</h2>
+          <h2 className="text-3xl sm:text-4xl font-bold mb-4 bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">Featured Projects</h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Here are some of my recent projects that showcase my skills and experience
           </p>
@@ -112,6 +113,6 @@ export default function Projects() {
           ))}
         </div>
       </div>
-    </section>
+    </SectionWrapper>
   )
 }

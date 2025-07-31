@@ -4,14 +4,18 @@ import Skills from "@/components/skills";
 import Projects from "@/components/projects";
 import Contact from "@/components/contact";
 import Navigation from "@/components/navigation";
+import AnimatedBackground from "@/components/animated-background";
+import Experience  from "@/components/experience";
 
-export default function Index() {
+export default function Home() {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen relative">
+      <AnimatedBackground />
       <Navigation />
-      <main>
+      <main className="relative z-10">
         <Hero />
         <About />
+        <Experience />
         <Skills />
         <Projects />
         <Contact />

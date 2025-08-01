@@ -31,7 +31,10 @@ export default function Hero() {
   };
 
   return (
-    <SectionWrapper className="min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 relative" id="home">
+    <SectionWrapper
+      className="min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 relative"
+      id="home"
+    >
       <motion.div
         className="max-w-4xl mx-auto text-center"
         variants={containerVariants}
@@ -45,7 +48,7 @@ export default function Hero() {
             transition={{ type: "spring", stiffness: 300 }}
           >
             <Image
-              src="/z6859606916513_33091ab717bc8fd22dd56274d068b223.jpg"
+              src="/avatar.jpg"
               alt="Bui Trung Hieu"
               width={192}
               height={192}
@@ -68,7 +71,7 @@ export default function Hero() {
             className="text-xl sm:text-2xl text-muted-foreground mb-8"
             variants={itemVariants}
           >
-            Full Stack Web Developer
+            Frontend Developer
           </motion.p>
 
           <motion.p
@@ -107,8 +110,16 @@ export default function Hero() {
           variants={itemVariants}
         >
           {[
-            { href: "https://github.com/thiu123", icon: Github, label: "GitHub" },
-            { href: "https://www.linkedin.com/in/bui-hieu-b84b2b277/", icon: Linkedin, label: "LinkedIn" },
+            {
+              href: "https://github.com/thiu123",
+              icon: Github,
+              label: "GitHub",
+            },
+            {
+              href: "https://www.linkedin.com/in/bui-hieu-b84b2b277/",
+              icon: Linkedin,
+              label: "LinkedIn",
+            },
             { href: "mailto:john@example.com", icon: Mail, label: "Email" },
           ].map(({ href, icon: Icon, label }) => (
             <motion.div

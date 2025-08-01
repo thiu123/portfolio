@@ -7,7 +7,9 @@ export default function About() {
     <SectionWrapper className="pb-20 pt-10 px-4 sm:px-6 lg:px-8" id="about">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-16">
-          <h2 className="text-3xl sm:text-4xl font-bold mb-4 bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">About Me</h2>
+          <h2 className="text-3xl sm:text-4xl font-bold mb-4 bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+            About Me
+          </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             I'm a passionate web developer who enjoys creating digital solutions
             that truly make a difference. I love turning complex problems into
@@ -40,7 +42,9 @@ export default function About() {
                 </div>
               </div>
               <div>
-                <div className="text-2xl font-bold text-purple-600">6 months +</div>
+                <div className="text-2xl font-bold text-purple-600">
+                  6 months +
+                </div>
                 <div className="text-sm text-muted-foreground">
                   Years Experience
                 </div>

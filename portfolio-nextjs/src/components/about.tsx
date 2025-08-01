@@ -11,11 +11,10 @@ export default function About() {
             About Me
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            I'm a passionate web developer who enjoys creating digital solutions
-            that truly make a difference. I love turning complex problems into
-            simple, intuitive, and beautiful interfaces—especially with
-            frontend, where design and user interaction come together. I’m
-            driven by clean code, user experience, and continuous learning.
+            I'm a passionate frontend developer who enjoys crafting intuitive
+            and beautiful interfaces. Currently focused on frontend, I'm also
+            working toward becoming a fullstack developer to handle both client
+            and server-side challenges.
           </p>
         </div>
 
@@ -45,9 +44,7 @@ export default function About() {
                 <div className="text-2xl font-bold text-purple-600">
                   6 months +
                 </div>
-                <div className="text-sm text-muted-foreground">
-                  Years Experience
-                </div>
+                <div className="text-sm text-muted-foreground">Experience</div>
               </div>
             </div>
           </div>

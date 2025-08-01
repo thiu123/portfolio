@@ -39,7 +39,7 @@ export default function Projects() {
   ];
 
   return (
-    <SectionWrapper className="py-20 px-4 sm:px-6 lg:px-8" id="projects">
+    <SectionWrapper id="projects" className="py-20 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-3xl sm:text-4xl font-bold mb-4 bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
@@ -55,7 +55,7 @@ export default function Projects() {
           {projects.map((project, index) => (
             <Card
               key={index}
-              className="overflow-hidden hover:shadow-lg transition-shadow"
+              className="relative py-0 pb-10 overflow-hidden hover:shadow-lg transition-shadow"
             >
               <div className="relative h-48 overflow-hidden">
                 <Image

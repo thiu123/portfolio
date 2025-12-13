@@ -39,7 +39,7 @@ export default function Experience() {
       duration: "June 2025 - Present",
       location: "Ho Chi Minh City, Vietnam",
       description: [
-        "Developed and maintained frontend web applications using React, Redux, and Sass.",
+        "Developed and maintained frontend web applications using Nuxt, VueJS, React, Redux, and Sass.",
         "Collaborated with designers to implement responsive and user-friendly interfaces.",
         "Optimized application performance and ensured cross-browser compatibility.",
         "Participated in code reviews and contributed to team knowledge sharing.",
@@ -51,6 +51,10 @@ export default function Experience() {
         "Tailwind CSS",
         "Vuetify",
         "Pinia",
+        "React",
+        "Redux",
+        "Sass",
+        "NextJS",
       ],
     },
   ];

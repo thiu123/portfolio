@@ -1,168 +1,564 @@
-import type React from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import {
-  SiReact,
-  SiNextdotjs,
-  SiTypescript,
-  SiJavascript,
-  SiHtml5,
-  SiCss3,
-  SiTailwindcss,
-  SiVuedotjs,
-  SiNuxtdotjs,
-  SiNodedotjs,
-  SiExpress,
-  SiMongodb,
-  SiGit,
-  SiVercel,
-  SiNetlify,
-  SiFirebase,
-  SiVite,
-  SiFigma,
-} from "react-icons/si";
-import { MdDevices } from "react-icons/md";
+"use client";
+import React from "react";
 
-export default function Skills() {
-  // Logo mapping for different skills with their brand colors
-  const skillLogos: {
-    [key: string]: { icon: React.ReactNode; color: string };
-  } = {
-    React: { icon: <SiReact className="w-4 h-4" />, color: "text-[#61DAFB]" },
-    NextJS: {
-      icon: <SiNextdotjs className="w-4 h-4" />,
-      color: "text-black dark:text-white",
-    },
-    TypeScript: {
-      icon: <SiTypescript className="w-4 h-4" />,
-      color: "text-[#3178C6]",
-    },
-    JavaScript: {
-      icon: <SiJavascript className="w-4 h-4" />,
-      color: "text-[#F7DF1E]",
-    },
-    HTML5: { icon: <SiHtml5 className="w-4 h-4" />, color: "text-[#E34F26]" },
-    CSS: { icon: <SiCss3 className="w-4 h-4" />, color: "text-[#1572B6]" },
-    "Tailwind CSS": {
-      icon: <SiTailwindcss className="w-4 h-4" />,
-      color: "text-[#06B6D4]",
-    },
-    VueJS: {
-      icon: <SiVuedotjs className="w-4 h-4" />,
-      color: "text-[#4FC08D]",
-    },
-    NuxtJS: {
-      icon: <SiNuxtdotjs className="w-4 h-4" />,
-      color: "text-[#00DC82]",
-    },
-    "Node.js": {
-      icon: <SiNodedotjs className="w-4 h-4" />,
-      color: "text-[#339933]",
-    },
-    "Express.js": {
-      icon: <SiExpress className="w-4 h-4" />,
-      color: "text-black dark:text-white",
-    },
-    MongoDB: {
-      icon: <SiMongodb className="w-4 h-4" />,
-      color: "text-[#47A248]",
-    },
-    Git: { icon: <SiGit className="w-4 h-4" />, color: "text-[#F05032]" },
-    Vercel: {
-      icon: <SiVercel className="w-4 h-4" />,
-      color: "text-black dark:text-white",
-    },
-    Netlify: {
-      icon: <SiNetlify className="w-4 h-4" />,
-      color: "text-[#00C7B7]",
-    },
-    Firebase: {
-      icon: <SiFirebase className="w-4 h-4" />,
-      color: "text-[#FFCA28]",
-    },
-    Vite: { icon: <SiVite className="w-4 h-4" />, color: "text-[#646CFF]" },
-    Figma: { icon: <SiFigma className="w-4 h-4" />, color: "text-[#F24E1E]" },
-    "Responsive Design": {
-      icon: <MdDevices className="w-4 h-4" />,
-      color: "text-[#6366F1]",
-    },
+// SVG Logo Components (as provided in the user request)
+const ReactLogo = () => (
+  <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+    <g
+      id="SVGRepo_tracerCarrier"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    ></g>
+    <g id="SVGRepo_iconCarrier">
+      {" "}
+      <path
+        d="M18.6789 15.9759C18.6789 14.5415 17.4796 13.3785 16 13.3785C14.5206 13.3785 13.3211 14.5415 13.3211 15.9759C13.3211 17.4105 14.5206 18.5734 16 18.5734C17.4796 18.5734 18.6789 17.4105 18.6789 15.9759Z"
+        fill="#53C1DE"
+      ></path>{" "}
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M24.7004 11.1537C25.2661 8.92478 25.9772 4.79148 23.4704 3.39016C20.9753 1.99495 17.7284 4.66843 16.0139 6.27318C14.3044 4.68442 10.9663 2.02237 8.46163 3.42814C5.96751 4.82803 6.73664 8.8928 7.3149 11.1357C4.98831 11.7764 1 13.1564 1 15.9759C1 18.7874 4.98416 20.2888 7.29698 20.9289C6.71658 23.1842 5.98596 27.1909 8.48327 28.5877C10.9973 29.9932 14.325 27.3945 16.0554 25.7722C17.7809 27.3864 20.9966 30.0021 23.4922 28.6014C25.9956 27.1963 25.3436 23.1184 24.7653 20.8625C27.0073 20.221 31 18.7523 31 15.9759C31 13.1835 26.9903 11.7923 24.7004 11.1537ZM24.4162 19.667C24.0365 18.5016 23.524 17.2623 22.8971 15.9821C23.4955 14.7321 23.9881 13.5088 24.3572 12.3509C26.0359 12.8228 29.7185 13.9013 29.7185 15.9759C29.7185 18.07 26.1846 19.1587 24.4162 19.667ZM22.85 27.526C20.988 28.571 18.2221 26.0696 16.9478 24.8809C17.7932 23.9844 18.638 22.9422 19.4625 21.7849C20.9129 21.6602 22.283 21.4562 23.5256 21.1777C23.9326 22.7734 24.7202 26.4763 22.85 27.526ZM9.12362 27.5111C7.26143 26.47 8.11258 22.8946 8.53957 21.2333C9.76834 21.4969 11.1286 21.6865 12.5824 21.8008C13.4123 22.9332 14.2816 23.9741 15.1576 24.8857C14.0753 25.9008 10.9945 28.557 9.12362 27.5111ZM2.28149 15.9759C2.28149 13.874 5.94207 12.8033 7.65904 12.3326C8.03451 13.5165 8.52695 14.7544 9.12123 16.0062C8.51925 17.2766 8.01977 18.5341 7.64085 19.732C6.00369 19.2776 2.28149 18.0791 2.28149 15.9759ZM9.1037 4.50354C10.9735 3.45416 13.8747 6.00983 15.1159 7.16013C14.2444 8.06754 13.3831 9.1006 12.5603 10.2265C11.1494 10.3533 9.79875 10.5569 8.55709 10.8297C8.09125 9.02071 7.23592 5.55179 9.1037 4.50354ZM20.3793 11.5771C21.3365 11.6942 22.2536 11.85 23.1147 12.0406C22.8562 12.844 22.534 13.6841 22.1545 14.5453C21.6044 13.5333 21.0139 12.5416 20.3793 11.5771ZM16.0143 8.0481C16.6054 8.66897 17.1974 9.3623 17.7798 10.1145C16.5985 10.0603 15.4153 10.0601 14.234 10.1137C14.8169 9.36848 15.414 8.67618 16.0143 8.0481ZM9.8565 14.5444C9.48329 13.6862 9.16398 12.8424 8.90322 12.0275C9.75918 11.8418 10.672 11.69 11.623 11.5748C10.9866 12.5372 10.3971 13.5285 9.8565 14.5444ZM11.6503 20.4657C10.6679 20.3594 9.74126 20.2153 8.88556 20.0347C9.15044 19.2055 9.47678 18.3435 9.85796 17.4668C10.406 18.4933 11.0045 19.4942 11.6503 20.4657ZM16.0498 23.9915C15.4424 23.356 14.8365 22.6531 14.2448 21.8971C15.4328 21.9423 16.6231 21.9424 17.811 21.891C17.2268 22.6608 16.6369 23.3647 16.0498 23.9915ZM22.1667 17.4222C22.5677 18.3084 22.9057 19.1657 23.1742 19.9809C22.3043 20.1734 21.3652 20.3284 20.3757 20.4435C21.015 19.4607 21.6149 18.4536 22.1667 17.4222ZM18.7473 20.5941C16.9301 20.72 15.1016 20.7186 13.2838 20.6044C12.2509 19.1415 11.3314 17.603 10.5377 16.0058C11.3276 14.4119 12.2404 12.8764 13.2684 11.4158C15.0875 11.2825 16.9178 11.2821 18.7369 11.4166C19.7561 12.8771 20.6675 14.4086 21.4757 15.9881C20.6771 17.5812 19.7595 19.1198 18.7473 20.5941ZM22.8303 4.4666C24.7006 5.51254 23.8681 9.22726 23.4595 10.8426C22.2149 10.5641 20.8633 10.3569 19.4483 10.2281C18.6239 9.09004 17.7698 8.05518 16.9124 7.15949C18.1695 5.98441 20.9781 3.43089 22.8303 4.4666Z"
+        fill="#53C1DE"
+      ></path>{" "}
+    </g>
+  </svg>
+);
+
+const TailwindLogo = () => (
+  <svg
+    viewBox="0 -51 256 256"
+    version="1.1"
+    xmlns="http://www.w3.org/2000/svg"
+    preserveAspectRatio="xMidYMid"
+    fill="#000000"
+  >
+    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+    <g
+      id="SVGRepo_tracerCarrier"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    ></g>
+    <g id="SVGRepo_iconCarrier">
+      {" "}
+      <defs>
+        {" "}
+        <linearGradient
+          x1="-2.77777778%"
+          y1="32%"
+          x2="100%"
+          y2="67.5555556%"
+          id="linearGradient-1"
+        >
+          {" "}
+          <stop stop-color="#2298BD" offset="0%">
+            {" "}
+          </stop>{" "}
+          <stop stop-color="#0ED7B5" offset="100%">
+            {" "}
+          </stop>{" "}
+        </linearGradient>{" "}
+      </defs>{" "}
+      <g>
+        {" "}
+        <path
+          d="M128,-1.0658141e-14 C93.8666667,-1.0658141e-14 72.5333333,17.0666667 64,51.2 C76.8,34.1333333 91.7333333,27.7333333 108.8,32 C118.537481,34.4343704 125.497363,41.4985481 133.201067,49.3184 C145.750756,62.0567704 160.275437,76.8 192,76.8 C226.133333,76.8 247.466667,59.7333333 256,25.6 C243.2,42.6666667 228.266667,49.0666667 211.2,44.8 C201.462519,42.3656296 194.502637,35.3014519 186.798933,27.4816 C174.249244,14.7432296 159.724563,-1.0658141e-14 128,-1.0658141e-14 Z M64,76.8 C29.8666667,76.8 8.53333333,93.8666667 0,128 C12.8,110.933333 27.7333333,104.533333 44.8,108.8 C54.5374815,111.23437 61.497363,118.298548 69.2010667,126.1184 C81.7507556,138.85677 96.275437,153.6 128,153.6 C162.133333,153.6 183.466667,136.533333 192,102.4 C179.2,119.466667 164.266667,125.866667 147.2,121.6 C137.462519,119.16563 130.502637,112.101452 122.798933,104.2816 C110.249244,91.5432296 95.724563,76.8 64,76.8 Z"
+          fill="url(#linearGradient-1)"
+        >
+          {" "}
+        </path>{" "}
+      </g>{" "}
+    </g>
+  </svg>
+);
+const JSLogo = () => (
+  <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+    <g
+      id="SVGRepo_tracerCarrier"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    ></g>
+    <g id="SVGRepo_iconCarrier">
+      {" "}
+      <rect x="2" y="2" width="28" height="28" fill="#FFCA28"></rect>{" "}
+      <path
+        d="M19 25.2879L21.0615 23.9237C21.2231 24.4313 22.2462 25.6368 23.5385 25.6368C24.8308 25.6368 25.4308 24.931 25.4308 24.463C25.4308 23.1878 24.1112 22.7382 23.4774 22.5223C23.374 22.4871 23.289 22.4581 23.2308 22.4328C23.2009 22.4198 23.1558 22.4025 23.0979 22.3804C22.393 22.1111 19.7923 21.1175 19.7923 18.2373C19.7923 15.065 22.8538 14.7002 23.5462 14.7002C23.9991 14.7002 26.1769 14.7557 27.2615 16.7939L25.2615 18.1898C24.8231 17.3015 24.0946 17.0081 23.6462 17.0081C22.5385 17.0081 22.3077 17.8201 22.3077 18.1898C22.3077 19.227 23.5112 19.6919 24.5273 20.0844C24.7932 20.1871 25.0462 20.2848 25.2615 20.3866C26.3692 20.91 28 21.7666 28 24.463C28 25.8136 26.8672 28.0002 24.0154 28.0002C20.1846 28.0002 19.1692 25.7003 19 25.2879Z"
+        fill="#3E3E3E"
+      ></path>{" "}
+      <path
+        d="M9 25.5587L11.1487 24.1953C11.317 24.7026 11.9713 25.638 12.9205 25.638C13.8698 25.638 14.3557 24.663 14.3557 24.1953V15.0002H16.9982V24.1953C17.041 25.4636 16.3376 28.0002 13.2332 28.0002C10.379 28.0002 9.19242 26.3039 9 25.5587Z"
+        fill="#3E3E3E"
+      ></path>{" "}
+    </g>
+  </svg>
+);
+const NextjsLogo = () => (
+  <svg
+    viewBox="0 -101.5 512 512"
+    version="1.1"
+    xmlns="http://www.w3.org/2000/svg"
+    preserveAspectRatio="xMidYMid"
+    fill="#000000"
+  >
+    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+    <g
+      id="SVGRepo_tracerCarrier"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    ></g>
+    <g id="SVGRepo_iconCarrier">
+      {" "}
+      <g>
+        {" "}
+        <path
+          d="M120.81043,80.5613102 L217.378325,80.5613102 L217.378325,88.2366589 L129.662487,88.2366589 L129.662487,146.003758 L212.147564,146.003758 L212.147564,153.679106 L129.662487,153.679106 L129.662487,217.101725 L218.384241,217.101725 L218.384241,224.777073 L120.81043,224.777073 L120.81043,80.5613102 Z M226.0292,80.5613102 L236.289538,80.5613102 L281.756922,143.983929 L328.230222,80.5613102 L391.441486,0 L287.591232,150.649363 L341.105941,224.777073 L330.443237,224.777073 L281.756922,157.314798 L232.869425,224.777073 L222.407904,224.777073 L276.324978,150.649363 L226.0292,80.5613102 Z M344.928421,88.2366588 L344.928421,80.5613102 L454.975585,80.5613102 L454.975585,88.2366589 L404.27744,88.2366589 L404.27744,224.777073 L395.425382,224.777073 L395.425382,88.2366589 L344.928421,88.2366588 Z M1.42108547e-14,80.5613102 L11.0650714,80.5613102 L163.64593,308.884007 L100.591558,224.777073 L9.25442331,91.4683847 L8.85205708,224.777073 L1.42108547e-14,224.777073 L1.42108547e-14,80.5613102 Z M454.083705,214.785469 C452.275167,214.785469 450.918762,213.38418 450.918762,211.573285 C450.918762,209.762388 452.275167,208.361099 454.083705,208.361099 C455.913774,208.361099 457.248648,209.762388 457.248648,211.573285 C457.248648,213.38418 455.913774,214.785469 454.083705,214.785469 Z M462.781915,206.334618 L467.518563,206.334618 C467.583153,208.900055 469.456284,210.624719 472.212151,210.624719 C475.290972,210.624719 477.03492,208.770705 477.03492,205.29982 L477.03492,183.310363 L481.85769,183.310363 L481.85769,205.321379 C481.85769,211.573285 478.240613,215.173518 472.255212,215.173518 C466.635824,215.173518 462.781915,211.681076 462.781915,206.334618 Z M488.166045,206.054362 L492.945754,206.054362 C493.354828,209.007848 496.239878,210.883419 500.395211,210.883419 C504.270652,210.883419 507.11264,208.878498 507.11264,206.119036 C507.11264,203.747625 505.304102,202.324777 501.191828,201.354653 L497.187209,200.384531 C491.56782,199.069474 489.005723,196.353129 489.005723,191.782772 C489.005723,186.24229 493.527071,182.555823 500.30909,182.555823 C506.617445,182.555823 511.224912,186.24229 511.504805,191.480955 L506.811217,191.480955 C506.359083,188.613703 503.861576,186.824365 500.244499,186.824365 C496.43365,186.824365 493.893085,188.656819 493.893085,191.459398 C493.893085,193.679901 495.52938,194.95184 499.577063,195.900406 L503.000368,196.741178 C509.373314,198.228702 512,200.815695 512,205.493846 C512,211.443935 507.392533,215.173518 500.029197,215.173518 C493.139526,215.173518 488.51053,211.6164 488.166045,206.054362 Z"
+          fill="#000000"
+          fill-rule="nonzero"
+        >
+          {" "}
+        </path>{" "}
+      </g>{" "}
+    </g>
+  </svg>
+);
+
+const TSLogo = () => (
+  <svg
+    viewBox="0 0 256 256"
+    version="1.1"
+    xmlns="http://www.w3.org/2000/svg"
+    preserveAspectRatio="xMidYMid"
+    fill="#000000"
+  >
+    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+    <g
+      id="SVGRepo_tracerCarrier"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    ></g>
+    <g id="SVGRepo_iconCarrier">
+      {" "}
+      <g>
+        {" "}
+        <polygon
+          fill="#007ACC"
+          transform="translate(128.000000, 128.000000) scale(1, -1) translate(-128.000000, -128.000000) "
+          points="0 128 0 0 128 0 256 0 256 128 256 256 128 256 0 256"
+        >
+          {" "}
+        </polygon>{" "}
+        <path
+          d="M146.658132,223.436863 L146.739401,212.953054 L130.079084,212.953054 L113.418767,212.953054 L113.418767,165.613371 L113.418767,118.273689 L101.63464,118.273689 L89.8505126,118.273689 L89.8505126,165.613371 L89.8505126,212.953054 L73.1901951,212.953054 L56.5298776,212.953054 L56.5298776,223.233689 C56.5298776,228.922577 56.6517824,233.676863 56.8143221,233.798768 C56.9362269,233.961308 77.2130522,234.042577 101.797179,234.001943 L146.536227,233.880038 L146.658132,223.436863 Z"
+          fill="#FFFFFF"
+          transform="translate(101.634640, 176.142993) rotate(-180.000000) translate(-101.634640, -176.142993) "
+        >
+          {" "}
+        </path>{" "}
+        <path
+          d="M206.566631,234.272145 C213.068219,232.646748 218.025679,229.761668 222.57679,225.048018 C224.933616,222.528653 228.428219,217.936907 228.712663,216.839764 C228.793933,216.514684 217.659965,209.037859 210.914568,204.852462 C210.670758,204.689922 209.69552,205.74643 208.598377,207.371827 C205.306949,212.166748 201.852981,214.239129 196.570441,214.604843 C188.809171,215.133097 183.811076,211.069605 183.851711,204.283573 C183.851711,202.292462 184.136155,201.114049 184.948854,199.488653 C186.65552,195.953414 189.825044,193.840399 199.7806,189.533097 C218.106949,181.649922 225.949489,176.448653 230.825679,169.053097 C236.270758,160.804208 237.489806,147.638494 233.792028,137.845478 C229.728536,127.199129 219.651076,119.966113 205.469489,117.568653 C201.080917,116.796589 190.678377,116.918494 185.964727,117.771827 C175.684092,119.600399 165.931711,124.679764 159.917743,131.343891 C157.560917,133.944526 152.969171,140.730557 153.253616,141.218176 C153.37552,141.380716 154.432028,142.030875 155.610441,142.721668 C156.748219,143.371827 161.05552,145.850557 165.119012,148.207383 L172.473933,152.474049 L174.01806,150.198494 C176.171711,146.907065 180.885362,142.396589 183.729806,140.893097 C191.897425,136.585795 203.112663,137.195319 208.639012,142.15278 C210.995838,144.30643 211.971076,146.541351 211.971076,149.83278 C211.971076,152.799129 211.605362,154.099446 210.061235,156.334367 C208.070123,159.178811 204.006631,161.576272 192.466314,166.574367 C179.259965,172.263256 173.571076,175.798494 168.369806,181.406113 C165.362822,184.656907 162.518377,189.858176 161.339965,194.206113 C160.364727,197.822621 160.120917,206.884208 160.892981,210.541351 C163.61552,223.300716 173.245996,232.199764 187.143139,234.841034 C191.653616,235.694367 202.137425,235.369287 206.566631,234.272145 Z"
+          fill="#FFFFFF"
+          transform="translate(194.578507, 176.190240) scale(1, -1) translate(-194.578507, -176.190240) "
+        >
+          {" "}
+        </path>{" "}
+      </g>{" "}
+    </g>
+  </svg>
+);
+
+const VueLogo = () => (
+  <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+    <g
+      id="SVGRepo_tracerCarrier"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    ></g>
+    <g id="SVGRepo_iconCarrier">
+      {" "}
+      <path
+        d="M2 4L16 28L30 4H24.5L16 18.5L7.5 4H2Z"
+        fill="#41B883"
+      ></path>{" "}
+      <path
+        d="M7.5 4L16 18.5L24.5 4H19.5L16.0653 10.0126L12.5 4H7.5Z"
+        fill="#35495E"
+      ></path>{" "}
+    </g>
+  </svg>
+);
+const NuxtLogo = () => (
+  <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" fill="#000000">
+    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+    <g
+      id="SVGRepo_tracerCarrier"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    ></g>
+    <g id="SVGRepo_iconCarrier">
+      <title>file_type_nuxt</title>
+      <path
+        d="M10.648,25.734a1.465,1.465,0,0,1-.157-.942H3.847L13.716,7.417l4.159,7.41,1.308-.976L15.076,6.467A1.752,1.752,0,0,0,13.7,5.56a1.531,1.531,0,0,0-1.343.924l-10,17.593a1.729,1.729,0,0,0-.087,1.656,1.526,1.526,0,0,0,1.456.706H12.1a1.523,1.523,0,0,1-1.456-.7Z"
+        style={{ fill: "#00c58e" }}
+      ></path>
+      <path
+        d="M29.636,24.112,21.589,9.823a1.692,1.692,0,0,0-1.351-.907,1.489,1.489,0,0,0-1.308.907l-1.064,1.7v3.3l2.371-4.071,7.951,14.071H25.163a1.377,1.377,0,0,1-.122.837l-.026.052a1.729,1.729,0,0,1-1.456.732h4.734a1.72,1.72,0,0,0,1.456-.732,1.548,1.548,0,0,0-.122-1.6Z"
+        style={{ fill: "#108775" }}
+      ></path>
+      <path
+        d="M25.233,25.7l.026-.052.07-.139a1.278,1.278,0,0,0,.061-.7,2.11,2.11,0,0,0-.27-.724l-6.286-10.9-.95-1.656h-.017l-.959,1.648-6.277,10.9a2.18,2.18,0,0,0-.244.715,1.438,1.438,0,0,0,.148.942,1.563,1.563,0,0,0,1.482.7H23.725a1.79,1.79,0,0,0,1.508-.741ZM17.866,14.836,23.62,24.8H12.112Z"
+        style={{ fill: "#2f495e" }}
+      ></path>
+    </g>
+  </svg>
+);
+const BootstrapLogo = () => (
+  <svg
+    viewBox="0 0 256 256"
+    version="1.1"
+    xmlns="http://www.w3.org/2000/svg"
+    preserveAspectRatio="xMidYMid"
+    fill="#000000"
+  >
+    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+    <g
+      id="SVGRepo_tracerCarrier"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    ></g>
+    <g id="SVGRepo_iconCarrier">
+      {" "}
+      <g>
+        {" "}
+        <path
+          d="M0,222.991225 C0,241.223474 14.7785318,256 33.0087747,256 L222.991225,256 C241.223474,256 256,241.221468 256,222.991225 L256,33.0087747 C256,14.7765263 241.221468,0 222.991225,0 L33.0087747,0 C14.7765263,0 0,14.7785318 0,33.0087747 L0,222.991225 Z"
+          fill="#563D7C"
+        >
+          {" "}
+        </path>{" "}
+        <path
+          d="M106.157563,113.238095 L106.157563,76.9845938 L138.069328,76.9845938 C141.108559,76.9845938 144.039202,77.2378593 146.861345,77.7443978 C149.683488,78.2509362 152.179961,79.1554557 154.35084,80.4579832 C156.52172,81.7605107 158.258397,83.5695496 159.560924,85.8851541 C160.863452,88.2007585 161.514706,91.1675823 161.514706,94.7857143 C161.514706,101.298352 159.560944,106.001853 155.653361,108.896359 C151.745779,111.790864 146.752832,113.238095 140.67437,113.238095 L106.157563,113.238095 L106.157563,113.238095 Z M72.07493,50.5 L72.07493,205.5 L147.186975,205.5 C154.133788,205.5 160.899594,204.631661 167.484594,202.894958 C174.069594,201.158255 179.93088,198.480877 185.068627,194.862745 C190.206375,191.244613 194.294803,186.577293 197.334034,180.860644 C200.373264,175.143996 201.892857,168.37819 201.892857,160.563025 C201.892857,150.866431 199.541107,142.581033 194.837535,135.706583 C190.133963,128.832132 183.00635,124.020088 173.454482,121.270308 C180.401295,117.941627 185.647508,113.672295 189.193277,108.462185 C192.739047,103.252075 194.511905,96.7395349 194.511905,88.9243697 C194.511905,81.6881057 193.317939,75.6097352 190.929972,70.6890756 C188.542005,65.7684161 185.177193,61.8247114 180.835434,58.8578431 C176.493676,55.8909749 171.283644,53.756309 165.205182,52.4537815 C159.12672,51.151254 152.397096,50.5 145.016106,50.5 L72.07493,50.5 L72.07493,50.5 Z M106.157563,179.015406 L106.157563,136.466387 L143.279412,136.466387 C150.660401,136.466387 156.594049,138.166883 161.080532,141.567927 C165.567016,144.968971 167.810224,150.649353 167.810224,158.609244 C167.810224,162.661552 167.122789,165.990183 165.747899,168.595238 C164.373009,171.200293 162.527789,173.262597 160.212185,174.782213 C157.89658,176.301828 155.219203,177.387252 152.179972,178.038515 C149.140741,178.689779 145.956833,179.015406 142.628151,179.015406 L106.157563,179.015406 L106.157563,179.015406 Z"
+          fill="#FFFFFF"
+        >
+          {" "}
+        </path>{" "}
+      </g>{" "}
+    </g>
+  </svg>
+);
+const HTMLLogo = () => (
+  <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+    <g
+      id="SVGRepo_tracerCarrier"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    ></g>
+    <g id="SVGRepo_iconCarrier">
+      {" "}
+      <path d="M6 28L4 3H28L26 28L16 31L6 28Z" fill="#E44D26"></path>{" "}
+      <path d="M26 5H16V29.5L24 27L26 5Z" fill="#F16529"></path>{" "}
+      <path
+        d="M9.5 17.5L8.5 8H24L23.5 11H11.5L12 14.5H23L22 24L16 26L10 24L9.5 19H12.5L13 21.5L16 22.5L19 21.5L19.5 17.5H9.5Z"
+        fill="white"
+      ></path>{" "}
+    </g>
+  </svg>
+);
+const CSSLogo = () => (
+  <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+    <g
+      id="SVGRepo_tracerCarrier"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    ></g>
+    <g id="SVGRepo_iconCarrier">
+      {" "}
+      <path d="M6 28L4 3H28L26 28L16 31L6 28Z" fill="#1172B8"></path>{" "}
+      <path d="M26 5H16V29.5L24 27L26 5Z" fill="#33AADD"></path>{" "}
+      <path
+        d="M19.5 17.5H9.5L9 14L17 11.5H9L8.5 8.5H24L23.5 12L17 14.5H23L22 24L16 26L10 24L9.5 19H12.5L13 21.5L16 22.5L19 21.5L19.5 17.5Z"
+        fill="white"
+      ></path>{" "}
+    </g>
+  </svg>
+);
+const ShadcnLogo = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+    <rect width="256" height="256" fill="none" />
+    <line
+      x1="208"
+      y1="128"
+      x2="128"
+      y2="208"
+      fill="none"
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="16"
+    />
+    <line
+      x1="192"
+      y1="40"
+      x2="40"
+      y2="192"
+      fill="none"
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="16"
+    />
+  </svg>
+);
+const AntDesignLogo = () => (
+  <svg
+    viewBox="0 0 256 256"
+    version="1.1"
+    xmlns="http://www.w3.org/2000/svg"
+    fill="#000000"
+  >
+    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+    <g
+      id="SVGRepo_tracerCarrier"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    ></g>
+    <g id="SVGRepo_iconCarrier">
+      {" "}
+      <title>Group</title> <desc>Created with Sketch.</desc>{" "}
+      <defs>
+        {" "}
+        <linearGradient
+          x1="62.1023273%"
+          y1="0%"
+          x2="108.19718%"
+          y2="37.8635764%"
+          id="linearGradient-1"
+        >
+          {" "}
+          <stop stop-color="#4285EB" offset="0%">
+            {" "}
+          </stop>{" "}
+          <stop stop-color="#2EC7FF" offset="100%">
+            {" "}
+          </stop>{" "}
+        </linearGradient>{" "}
+        <linearGradient
+          x1="69.644116%"
+          y1="0%"
+          x2="54.0428975%"
+          y2="108.456714%"
+          id="linearGradient-2"
+        >
+          {" "}
+          <stop stop-color="#29CDFF" offset="0%">
+            {" "}
+          </stop>{" "}
+          <stop stop-color="#148EFF" offset="37.8600687%">
+            {" "}
+          </stop>{" "}
+          <stop stop-color="#0A60FF" offset="100%">
+            {" "}
+          </stop>{" "}
+        </linearGradient>{" "}
+        <linearGradient
+          x1="69.6908165%"
+          y1="-12.9743587%"
+          x2="16.7228981%"
+          y2="117.391248%"
+          id="linearGradient-3"
+        >
+          {" "}
+          <stop stop-color="#FA816E" offset="0%">
+            {" "}
+          </stop>{" "}
+          <stop stop-color="#F74A5C" offset="41.472606%">
+            {" "}
+          </stop>{" "}
+          <stop stop-color="#F51D2C" offset="100%">
+            {" "}
+          </stop>{" "}
+        </linearGradient>{" "}
+        <linearGradient
+          x1="68.1279872%"
+          y1="-35.6905737%"
+          x2="30.4400914%"
+          y2="114.942679%"
+          id="linearGradient-4"
+        >
+          {" "}
+          <stop stop-color="#FA8E7D" offset="0%">
+            {" "}
+          </stop>{" "}
+          <stop stop-color="#F74A5C" offset="51.2635191%">
+            {" "}
+          </stop>{" "}
+          <stop stop-color="#F51D2C" offset="100%">
+            {" "}
+          </stop>{" "}
+        </linearGradient>{" "}
+      </defs>{" "}
+      <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        {" "}
+        <g fill-rule="nonzero">
+          {" "}
+          <path
+            d="M116.850078,4.54548777 L4.52892893,116.774275 C-1.50964298,122.807881 -1.50964298,132.553174 4.52892893,138.586781 L116.850078,250.815568 C122.88865,256.849175 132.641964,256.849175 138.680536,250.815568 L185.77519,203.759641 C191.183172,198.356106 191.183172,189.595245 185.77519,184.191711 C180.367208,178.788175 171.599136,178.788175 166.191154,184.191711 L130.489075,219.864432 C128.986084,221.366187 126.704989,221.366187 125.201998,219.864432 L35.5055378,130.241729 C34.0025469,128.739974 34.0025469,126.460755 35.5055378,124.959 L125.201998,35.3362976 C126.704989,33.8345425 128.986084,33.8345425 130.489075,35.3362976 L166.191154,71.009019 C171.599136,76.4125539 180.367208,76.4125539 185.77519,71.009019 C191.183172,65.605484 191.183172,56.8446228 185.77519,51.4410879 L138.685727,4.39028013 C132.622361,-1.51275655 122.86548,-1.46496803 116.850078,4.54548777 Z"
+            fill="url(#linearGradient-1)"
+          >
+            {" "}
+          </path>{" "}
+          <path
+            d="M116.850078,4.54548777 L4.52892893,116.774275 C-1.50964298,122.807881 -1.50964298,132.553174 4.52892893,138.586781 L116.850078,250.815568 C122.88865,256.849175 132.641964,256.849175 138.680536,250.815568 L185.77519,203.759641 C191.183172,198.356106 191.183172,189.595245 185.77519,184.191711 C180.367208,178.788175 171.599136,178.788175 166.191154,184.191711 L130.489075,219.864432 C128.986084,221.366187 126.704989,221.366187 125.201998,219.864432 L35.5055378,130.241729 C34.0025469,128.739974 34.0025469,126.460755 35.5055378,124.959 L125.201998,35.3362976 C128.944397,32.1100005 135.050525,25.5752137 144.017405,24.0468431 C150.68143,22.9109853 157.967021,25.4109881 165.874177,31.546852 C160.587747,26.2647619 151.52493,17.2125713 138.685727,4.39028013 C132.622361,-1.51275655 122.86548,-1.46496803 116.850078,4.54548777 Z"
+            fill="url(#linearGradient-2)"
+          >
+            {" "}
+          </path>{" "}
+          <path
+            d="M196.646643,173.754365 C202.054625,179.157899 210.822696,179.157899 216.230677,173.754365 L250.970004,139.043604 C257.008576,133.009998 257.008576,123.264704 250.970711,117.231801 L215.928547,82.342615 C210.507763,76.945494 201.736908,76.953277 196.325725,82.3600099 C190.917743,87.7635449 190.917743,96.524406 196.325725,101.927941 L219.993396,125.57615 C221.496387,127.077905 221.496387,129.357124 219.993396,130.858879 L196.646643,154.186433 C191.23866,159.589968 191.23866,168.350829 196.646643,173.754365 Z"
+            fill="url(#linearGradient-3)"
+          >
+            {" "}
+          </path>{" "}
+          <ellipse
+            fill="url(#linearGradient-4)"
+            cx="128.326913"
+            cy="128.241672"
+            rx="30.3267102"
+            ry="30.3017724"
+          >
+            {" "}
+          </ellipse>{" "}
+        </g>{" "}
+      </g>{" "}
+    </g>
+  </svg>
+);
+const logos1 = [
+  { id: 1, component: <ReactLogo /> },
+  { id: 2, component: <TailwindLogo /> },
+  { id: 3, component: <BootstrapLogo /> },
+  { id: 4, component: <HTMLLogo /> },
+  { id: 5, component: <CSSLogo /> },
+  { id: 6, component: <ShadcnLogo /> },
+  { id: 7, component: <AntDesignLogo /> },
+  { id: 8, component: <VueLogo /> },
+  { id: 9, component: <NuxtLogo /> },
+  { id: 10, component: <NextjsLogo /> },
+  { id: 11, component: <JSLogo /> },
+  { id: 12, component: <TSLogo /> },
+];
+
+const logos2 = [
+  { id: 1, component: <ReactLogo /> },
+  { id: 2, component: <TailwindLogo /> },
+  { id: 3, component: <BootstrapLogo /> },
+  { id: 4, component: <HTMLLogo /> },
+  { id: 5, component: <CSSLogo /> },
+  { id: 6, component: <ShadcnLogo /> },
+  { id: 7, component: <AntDesignLogo /> },
+  { id: 8, component: <VueLogo /> },
+  { id: 9, component: <NuxtLogo /> },
+  { id: 10, component: <NextjsLogo /> },
+  { id: 11, component: <JSLogo /> },
+  { id: 12, component: <TSLogo /> },
+];
+
+function Logomarquee() {
+  React.useEffect(() => {
+    const styleSheet = document.createElement("style");
+    styleSheet.innerText = `
+      @keyframes marquee-move {
+        to {
+          transform: translateX(calc(-100cqw - var(--item-gap)));
+        }
+      }
+    `;
+    document.head.appendChild(styleSheet);
+    return () => {
+      document.head.removeChild(styleSheet);
+    };
+  }, []);
+
+  const Marquee = ({
+    logos,
+    direction = "forwards",
+  }: {
+    logos: typeof logos1;
+    direction?: string;
+  }) => {
+    const numItems = logos.length;
+    const speed = "25s";
+    const itemWidth = "120px";
+    const itemGap = "25px";
+
+    return (
+      <div
+        className="max-w-full overflow-hidden"
+        style={
+          {
+            "--speed": speed,
+            "--numItems": numItems,
+            "--item-width": itemWidth,
+            "--item-gap": itemGap,
+            "--direction": direction,
+            maskImage:
+              "linear-gradient(to right, transparent, black 2rem, black calc(100% - 2rem), transparent)",
+          } as React.CSSProperties
+        }
+      >
+        <div
+          className="w-max flex"
+          style={
+            {
+              "--track-width": `calc(var(--item-width) * ${numItems})`,
+              "--track-gap": `calc(var(--item-gap) * ${numItems})`,
+            } as React.CSSProperties
+          }
+        >
+          {[...logos, ...logos].map((logo, index) => (
+            <div
+              key={index}
+              className="flex-shrink-0 flex justify-center items-center bg-white/10 border border-black rounded-2xl text-white"
+              style={
+                {
+                  width: "var(--item-width)",
+                  aspectRatio: "1 / 1.2",
+                  marginRight: "var(--item-gap)",
+                  animation: `marquee-move var(--speed) linear infinite ${direction}`,
+                } as React.CSSProperties
+              }
+            >
+              <div className="w-3/5 h-auto">{logo.component}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
   };
 
-  const skillCategories = [
-    {
-      title: "Frontend",
-      skills: [
-        "React",
-        "NextJS",
-        "TypeScript",
-        "JavaScript",
-        "HTML5",
-        "CSS",
-        "Tailwind CSS",
-        "VueJS",
-        "NuxtJS",
-      ],
-    },
-    {
-      title: "Backend",
-      skills: ["Node.js", "Express.js", "MongoDB"],
-    },
-    {
-      title: "Tools & Technologies",
-      skills: ["Git", "Vercel", "Netlify", "Firebase", "Vite"],
-    },
-    {
-      title: "Design & Others",
-      skills: ["Figma", "Responsive Design"],
-    },
-  ];
-
   return (
-    <section id="skills" className="py-20 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl sm:text-4xl font-bold mb-4 bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
-            Skills & Technologies
-          </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Here are the technologies and tools I work with to bring ideas to
-            life
+    <section id="stack" className="py-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
+      <div className="max-w-7xl mx-auto">
+        {/* Section Title */}
+        <div className=" mb-16">
+          <h2 className="text-3xl sm:text-4xl font-bold mb-4">Tech Stack</h2>
+          <p className="text-gray-400 text-sm sm:text-base">
+            Technologies I use to build modern web applications
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-8">
-          {skillCategories.map((category, index) => (
-            <Card key={index} className="hover:shadow-lg transition-shadow">
-              <CardHeader>
-                <CardTitle className="text-xl">{category.title}</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="flex flex-wrap gap-2">
-                  {category.skills.map((skill, skillIndex) => {
-                    const skillData = skillLogos[skill];
-                    return (
-                      <Badge
-                        key={skillIndex}
-                        variant="secondary"
-                        className="text-sm flex items-center gap-1.5 px-3 py-1.5 hover:bg-primary hover:text-primary-foreground transition-colors group"
-                      >
-                        <span
-                          className={`${
-                            skillData?.color || "text-current"
-                          } group-hover:text-current transition-colors`}
-                        >
-                          {skillData?.icon}
-                        </span>
-                        {skill}
-                      </Badge>
-                    );
-                  })}
-                </div>
-              </CardContent>
-            </Card>
-          ))}
+        {/* Marquee Scrollers */}
+        <div className="w-full flex flex-col gap-y-6">
+          <Marquee logos={logos1} />
+          <Marquee logos={logos2} direction="reverse" />
         </div>
       </div>
     </section>
   );
 }
+
+export default Logomarquee;

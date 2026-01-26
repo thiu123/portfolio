@@ -1,25 +1,28 @@
+"use client";
+
+import { LazyMotion, domAnimation } from "framer-motion";
 import Hero from "@/components/hero";
-import About from "@/components/about";
-import Skills from "@/components/skills";
 import Projects from "@/components/projects";
-import Contact from "@/components/contact";
+import Experience from "@/components/experience";
+import Skills from "@/components/skills";
+import CTA from "@/components/cta";
+import Footer from "@/components/footer";
 import Navigation from "@/components/navigation";
-import AnimatedBackground from "@/components/animated-background";
-import Experience  from "@/components/experience";
 
 export default function Home() {
   return (
-    <div className="min-h-screen relative">
-      <AnimatedBackground />
-      <Navigation />
-      <main className="relative z-10">
-        <Hero />
-        <About />
-        <Experience />
-        <Skills />
-        <Projects />
-        <Contact />
-      </main>
-    </div>
+    <LazyMotion features={domAnimation}>
+      <div className="min-h-screen">
+        <Navigation />
+        <main>
+          <Hero />
+          <Projects />
+          <Experience />
+          <Skills />
+          <CTA />
+        </main>
+        <Footer />
+      </div>
+    </LazyMotion>
   );
 }

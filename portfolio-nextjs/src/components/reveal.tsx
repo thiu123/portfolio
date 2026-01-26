@@ -2,7 +2,7 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 import type { ReactNode } from "react";
-import { fadeUp } from "@/lib/motion-variants";
+import {} from "@/lib/motion-variants";
 
 interface RevealProps {
   children: ReactNode;

@@ -8,14 +8,12 @@ import {
   animate,
 } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { ArrowDown, Sparkles } from "lucide-react";
+import { ArrowDown } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import {
   fadeUp,
   staggerContainer,
-  buttonPress,
   EASE,
 } from "@/lib/motion-variants";
 import { useEffect } from "react";

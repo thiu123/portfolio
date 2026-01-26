@@ -256,7 +256,11 @@ export function FloatingElement({ children }: { children: React.ReactNode }) {
 // ============================================
 // 9. MODAL WITH BACKDROP
 // ============================================
-export function AnimatedModal({ isOpen, onClose, children }: any) {
+export function AnimatedModal({ isOpen, onClose, children }: {
+  isOpen: boolean;
+  onClose: () => void;
+  children: React.ReactNode;
+}) {
   return (
     <motion.div
       initial={{ opacity: 0 }}

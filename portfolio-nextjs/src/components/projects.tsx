@@ -11,7 +11,7 @@ import { Badge } from "@/components/ui/badge";
 import { ExternalLink, Github, ArrowUpRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { fadeUp, cardVariant, buttonPress, EASE } from "@/lib/motion-variants";
+import { cardVariant, EASE } from "@/lib/motion-variants";
 import { useState } from "react";
 
 /**

@@ -2,7 +2,7 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 import { Badge } from "@/components/ui/badge";
-import { fadeUp, EASE, STAGGER } from "@/lib/motion-variants";
+import { EASE, STAGGER } from "@/lib/motion-variants";
 
 /**
  * Experience Section

@@ -3,6 +3,7 @@
  * Copy-paste ready snippets for common animation patterns
  */
 
+import { useState } from "react";
 import {
   motion,
   useScroll,
@@ -322,7 +323,7 @@ export function FlipCard({
   front: React.ReactNode;
   back: React.ReactNode;
 }) {
-  const [isFlipped, setIsFlipped] = React.useState(false);
+  const [isFlipped, setIsFlipped] = useState(false);
 
   return (
     <div className="perspective-1000" onClick={() => setIsFlipped(!isFlipped)}>

@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import { useEffect } from "react";
 
 // SVG Logo Components (as provided in the user request)
 const ReactLogo = () => (
@@ -468,7 +468,7 @@ const logos2 = [
 ];
 
 function Logomarquee() {
-  React.useEffect(() => {
+  useEffect(() => {
     const styleSheet = document.createElement("style");
     styleSheet.innerText = `
       @keyframes marquee-move {

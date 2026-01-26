@@ -1,22 +1,18 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-import { useMotionValue, useSpring, motion, useReducedMotion } from "framer-motion";
+import { useEffect } from "react";
+import { useMotionValue, useSpring, useReducedMotion } from "framer-motion";
 
 /**
  * Cursor Glow Hook
- * 
+ *
  * Creates a smooth cursor-following glow effect
  * Lightweight and GPU-friendly
- * 
+ *
  * Usage:
- * const CursorGlow = useCursorGlow();
- * return (
- *   <div className="relative">
- *     {CursorGlow}
- *     <YourContent />
- *   </div>
- * );
+ * import { useCursorGlow } from "@/hooks/use-cursor-glow";
+ *
+ * const { cursorXSpring, cursorYSpring } = useCursorGlow();
  */
 export function useCursorGlow() {
   const shouldReduceMotion = useReducedMotion();
@@ -40,16 +36,11 @@ export function useCursorGlow() {
     return () => window.removeEventListener("mousemove", moveCursor);
   }, [cursorX, cursorY, shouldReduceMotion]);
 
-  if (shouldReduceMotion) return null;
-
-  return (
-    <motion.div
-      className="pointer-events-none fixed inset-0 z-30"
-      style={{
-        background: `radial-gradient(600px at ${cursorXSpring as any}px ${cursorYSpring as any}px, rgba(59, 130, 246, 0.15), transparent 80%)`,
-      }}
-    />
-  );
+  return {
+    cursorXSpring,
+    cursorYSpring,
+    shouldReduceMotion,
+  };
 }
 
 export default useCursorGlow;

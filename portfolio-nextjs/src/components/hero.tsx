@@ -11,11 +11,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowDown } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
-import {
-  fadeUp,
-  staggerContainer,
-  EASE,
-} from "@/lib/motion-variants";
+import { fadeUp, staggerContainer, EASE } from "@/lib/motion-variants";
 import { useEffect } from "react";
 
 /**

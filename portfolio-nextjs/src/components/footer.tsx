@@ -3,41 +3,80 @@
 import Link from "next/link";
 import { Github, Linkedin, Twitter } from "lucide-react";
 
+/**
+ * Footer — DESIGN.md compliant
+ *
+ * - White background, whisper border top
+ * - Copyright in caption style (#a39e98)
+ * - Social links: near-black → Notion Blue on hover
+ */
 export default function Footer() {
+  const socialLinks = [
+    {
+      href: "https://github.com/thiu123",
+      icon: <Github style={{ width: "18px", height: "18px" }} />,
+      label: "GitHub",
+    },
+    {
+      href: "https://linkedin.com",
+      icon: <Linkedin style={{ width: "18px", height: "18px" }} />,
+      label: "LinkedIn",
+    },
+    {
+      href: "https://twitter.com",
+      icon: <Twitter style={{ width: "18px", height: "18px" }} />,
+      label: "Twitter",
+    },
+  ];
+
   return (
-    <footer className="border-t border-white/10 py-8 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+    <footer
+      className="section-white"
+      style={{
+        borderTop: "1px solid rgba(0, 0, 0, 0.1)",
+        padding: "24px 1.5rem",
+      }}
+    >
+      <div className="container-content flex flex-col sm:flex-row items-center justify-between" style={{ gap: "16px" }}>
         {/* Copyright */}
-        <p className="text-sm text-gray-500">
-          © 2024 Bui Trung Hieu. Built with Precision.
+        <p
+          style={{
+            fontSize: "14px",
+            fontWeight: 400,
+            lineHeight: 1.43,
+            color: "#a39e98",
+            margin: 0,
+          }}
+        >
+          © {new Date().getFullYear()} Bui Trung Hieu. Built with precision.
         </p>
 
         {/* Social Links */}
-        <div className="flex items-center gap-6">
-          <Link
-            href="https://github.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-gray-400 hover:text-white transition-colors"
-          >
-            <Github className="w-5 h-5" />
-          </Link>
-          <Link
-            href="https://linkedin.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-gray-400 hover:text-white transition-colors"
-          >
-            <Linkedin className="w-5 h-5" />
-          </Link>
-          <Link
-            href="https://twitter.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-gray-400 hover:text-white transition-colors"
-          >
-            <Twitter className="w-5 h-5" />
-          </Link>
+        <div className="flex items-center" style={{ gap: "20px" }}>
+          {socialLinks.map((link) => (
+            <Link
+              key={link.label}
+              href={link.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="no-underline"
+              aria-label={link.label}
+              style={{
+                color: "#615d59",
+                textDecoration: "none",
+                transition: "color 0.2s ease",
+                display: "inline-flex",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.color = "#0075de";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.color = "#615d59";
+              }}
+            >
+              {link.icon}
+            </Link>
+          ))}
         </div>
       </div>
     </footer>

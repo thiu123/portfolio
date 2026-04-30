@@ -1,38 +1,38 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
-import {
-  Card,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { ExternalLink, Github, ArrowUpRight } from "lucide-react";
+import { ExternalLink, Github } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { cardVariant, EASE } from "@/lib/motion-variants";
-import { useState } from "react";
+import { fadeUp, staggerContainer, EASE } from "@/lib/motion-variants";
+import { SiHtml5, SiTailwindcss, SiVuedotjs, SiNuxtdotjs, SiCss3 } from "react-icons/si";
+import React from "react";
+
+const techIcons: Record<string, React.ReactNode> = {
+  HTML: <SiHtml5 />,
+  TailwindCSS: <SiTailwindcss />,
+  VueJS: <SiVuedotjs />,
+  NuxtJS: <SiNuxtdotjs />,
+  CSS: <SiCss3 />,
+};
 
 /**
- * Projects Section
+ * Projects Section — DESIGN.md compliant
  *
- * Features:
- * - Card lift with enhanced shadow on hover
- * - Image scale animation
- * - Overlay fade + slide on hover
- * - Icon hover animations
- * - Smooth entrance animations
+ * - White background
+ * - Feature Cards with Illustrations per DESIGN.md
+ * - 12px radius, whisper border, multi-layer card shadow
+ * - Pill badges for tech stack with icons
+ * - Hover: shadow intensification + card lift
  */
 export default function Projects() {
   const shouldReduceMotion = useReducedMotion();
-  const [hoveredCard, setHoveredCard] = useState<number | null>(null);
 
   const projects = [
     {
       title: "Food Recipes",
       description:
-        "Build a recipe website that makes learning to cook easier. View all and detail food recipes, about us page. When you click on the checkbox in the ingredients section, all the checked ingredients will be crossed out.",
+        "A recipe discovery platform that makes cooking accessible. Browse recipes, view detailed ingredients and instructions, with interactive checkbox tracking for ingredients.",
       image: "/recipes.jpg",
       technologies: ["HTML", "TailwindCSS", "VueJS", "NuxtJS"],
       liveUrl: "https://github.com/thiu123/food_recipes",
@@ -41,7 +41,7 @@ export default function Projects() {
     {
       title: "Pokemon Game",
       description:
-        "Build a pokemon game site with a variety of options. Select the cards so that they are the same, if they are not the same, you need to select again.",
+        "A card-matching memory game with Pokemon characters. Test your memory by finding matching pairs across an increasingly challenging grid.",
       image: "/pokemon-minimalism-pixel-art-wallpaper-preview.jpg",
       technologies: ["HTML", "CSS", "VueJS"],
       liveUrl: "https://preeminent-hotteok-a27fd7.netlify.app/",
@@ -50,186 +50,245 @@ export default function Projects() {
   ];
 
   return (
-    <section id="projects" className="py-20 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-6xl mx-auto">
-        {/* Section Header */}
-        <div className="flex items-center justify-between mb-12">
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, ease: EASE }}
-            className="text-3xl sm:text-4xl font-bold"
-          >
-            Selected Projects
-          </motion.h2>
+    <section
+      id="projects"
+      className="section-white section-padding"
+      style={{ paddingLeft: "1.5rem", paddingRight: "1.5rem" }}
+    >
+      <div className="container-content">
+        <motion.div
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+        >
+          {/* Section Header */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.1, ease: EASE }}
+            variants={fadeUp}
+            className="flex items-center justify-between"
+            style={{ marginBottom: "48px" }}
           >
-            <motion.div whileHover={{ x: 4 }} transition={{ duration: 0.2 }}>
-              <Link
-                href="#"
-                className="text-blue-500 hover:text-blue-400 flex items-center gap-1 text-sm font-medium transition-colors"
-              >
-                View Archive
-                <motion.div
-                  animate={{ rotate: [0, 45, 0] }}
-                  transition={{
-                    duration: 1.5,
-                    repeat: Infinity,
-                    repeatDelay: 2,
-                  }}
-                >
-                  <ArrowUpRight className="w-4 h-4" />
-                </motion.div>
-              </Link>
-            </motion.div>
-          </motion.div>
-        </div>
-
-        {/* Projects Grid */}
-        <div className="grid md:grid-cols-2 gap-6">
-          {projects.map((project, index) => (
-            <motion.div
-              key={index}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-100px" }}
-              variants={cardVariant}
-              transition={{ delay: index * 0.15, ease: EASE }}
-              onMouseEnter={() => setHoveredCard(index)}
-              onMouseLeave={() => setHoveredCard(null)}
+            <h2 className="text-section-heading">Selected Projects</h2>
+            <Link
+              href="https://github.com/thiu123"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="no-underline hidden sm:inline-flex items-center"
+              style={{
+                fontSize: "15px",
+                fontWeight: 600,
+                color: "#0075de",
+                textDecoration: "none",
+                gap: "4px",
+                transition: "color 0.2s ease",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.textDecoration = "underline";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.textDecoration = "none";
+              }}
             >
-              <Link href={project.liveUrl}>
+              View All →
+            </Link>
+          </motion.div>
+
+          {/* Projects Grid */}
+          <div
+            className="grid grid-cols-1 md:grid-cols-2"
+            style={{ gap: "24px" }}
+          >
+            {projects.map((project, index) => (
+              <motion.div
+                key={index}
+                variants={fadeUp}
+                transition={{ delay: index * 0.15 }}
+              >
                 <motion.div
+                  style={{
+                    backgroundColor: "#ffffff",
+                    border: "1px solid rgba(0, 0, 0, 0.1)",
+                    borderRadius: "12px",
+                    overflow: "hidden",
+                    boxShadow: "var(--shadow-card)",
+                    transition: "box-shadow 0.4s ease, transform 0.4s ease",
+                    cursor: "pointer",
+                    height: "100%",
+                    display: "flex",
+                    flexDirection: "column",
+                  }}
                   whileHover={
                     !shouldReduceMotion
                       ? {
-                          y: -8,
+                          y: -6,
                           transition: { duration: 0.4, ease: EASE },
                         }
                       : {}
                   }
-                  className="h-full"
+                  onMouseEnter={(e) => {
+                    (e.currentTarget as HTMLElement).style.boxShadow =
+                      "var(--shadow-deep)";
+                  }}
+                  onMouseLeave={(e) => {
+                    (e.currentTarget as HTMLElement).style.boxShadow =
+                      "var(--shadow-card)";
+                  }}
                 >
-                  <Card className="overflow-hidden bg-[#141414] border-white/10 hover:border-white/20 transition-colors h-full group">
-                    {/* Project Image with hover scale */}
-                    <div className="relative h-64 bg-gradient-to-br from-gray-900 to-gray-800 overflow-hidden">
-                      <motion.div
-                        className="relative w-full h-full"
-                        whileHover={!shouldReduceMotion ? { scale: 1.05 } : {}}
-                        transition={{ duration: 0.6, ease: EASE }}
-                      >
-                        <Image
-                          src={project.image || "/placeholder.svg"}
-                          alt={project.title}
-                          fill
-                          className="object-cover"
-                        />
-                      </motion.div>
+                  {/* Project Image */}
+                  <div
+                    style={{
+                      position: "relative",
+                      height: "240px",
+                      overflow: "hidden",
+                      borderBottom: "1px solid rgba(0, 0, 0, 0.1)",
+                    }}
+                  >
+                    <Image
+                      src={project.image}
+                      alt={project.title}
+                      fill 
+                      className="object-cover"
+                      style={{
+                        transition: "transform 0.6s ease",
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.transform = "scale(1.03)";
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.transform = "scale(1)";
+                      }}
+                    />
+                  </div>
 
-                      {/* Overlay that fades in on hover */}
-                      <motion.div
-                        className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent flex items-end p-6"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: hoveredCard === index ? 1 : 0 }}
-                        transition={{ duration: 0.3 }}
-                      >
-                        <motion.p
-                          className="text-white text-sm"
-                          initial={{ y: 20, opacity: 0 }}
-                          animate={{
-                            y: hoveredCard === index ? 0 : 20,
-                            opacity: hoveredCard === index ? 1 : 0,
+                  {/* Card Content */}
+                  <div
+                    style={{
+                      padding: "24px",
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: "12px",
+                      flex: 1,
+                    }}
+                  >
+                    {/* Tech Badges */}
+                    <div className="flex flex-wrap" style={{ gap: "6px" }}>
+                      {project.technologies.map((tech, techIndex) => (
+                        <span
+                          key={techIndex}
+                          style={{
+                            display: "inline-flex",
+                            alignItems: "center",
+                            gap: "6px",
+                            backgroundColor: "#f2f9ff",
+                            color: "#097fe8",
+                            fontSize: "12px",
+                            fontWeight: 600,
+                            lineHeight: 1.33,
+                            letterSpacing: "0.125px",
+                            padding: "4px 8px",
+                            borderRadius: "9999px",
                           }}
-                          transition={{ duration: 0.4, ease: EASE }}
                         >
-                          Click to view project
-                        </motion.p>
-                      </motion.div>
+                          {techIcons[tech] && (
+                            <span style={{ fontSize: "14px", display: "flex", alignItems: "center" }}>
+                              {techIcons[tech]}
+                            </span>
+                          )}
+                          {tech}
+                        </span>
+                      ))}
                     </div>
 
-                    <CardHeader className="space-y-3">
-                      {/* Tech Badges with stagger */}
-                      <motion.div
-                        className="flex flex-wrap gap-2"
-                        initial="hidden"
-                        animate="visible"
-                        variants={{
-                          hidden: {},
-                          visible: {
-                            transition: {
-                              staggerChildren: 0.05,
-                            },
-                          },
+                    {/* Title */}
+                    <h4
+                      style={{
+                        fontSize: "22px",
+                        fontWeight: 700,
+                        lineHeight: 1.27,
+                        letterSpacing: "-0.25px",
+                        color: "rgba(0, 0, 0, 0.95)",
+                      }}
+                    >
+                      {project.title}
+                    </h4>
+
+                    {/* Description */}
+                    <p
+                      style={{
+                        fontSize: "16px",
+                        fontWeight: 400,
+                        lineHeight: 1.5,
+                        color: "#615d59",
+                        flex: 1,
+                      }}
+                    >
+                      {project.description}
+                    </p>
+
+                    {/* Links */}
+                    <div
+                      className="flex items-center"
+                      style={{
+                        gap: "16px",
+                        paddingTop: "8px",
+                        borderTop: "1px solid rgba(0, 0, 0, 0.06)",
+                      }}
+                    >
+                      <Link
+                        href={project.liveUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="no-underline inline-flex items-center"
+                        style={{
+                          fontSize: "14px",
+                          fontWeight: 500,
+                          color: "#615d59",
+                          gap: "6px",
+                          textDecoration: "none",
+                          transition: "color 0.2s ease",
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.color = "#0075de";
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.color = "#615d59";
                         }}
                       >
-                        {project.technologies.map((tech, techIndex) => (
-                          <motion.div
-                            key={techIndex}
-                            variants={{
-                              hidden: { scale: 0, opacity: 0 },
-                              visible: { scale: 1, opacity: 1 },
-                            }}
-                            transition={{ duration: 0.3 }}
-                          >
-                            <Badge
-                              variant="outline"
-                              className="text-xs bg-blue-500/10 border-blue-500/30 text-blue-400"
-                            >
-                              {tech}
-                            </Badge>
-                          </motion.div>
-                        ))}
-                      </motion.div>
-
-                      {/* Title & Description */}
-                      <CardTitle className="text-xl group-hover:text-blue-500 transition-colors">
-                        {project.title}
-                      </CardTitle>
-                      <CardDescription className="text-gray-400">
-                        {project.description}
-                      </CardDescription>
-
-                      {/* Links with hover effects */}
-                      <div className="flex gap-4 pt-2">
-                        <motion.div
-                          whileHover={{ scale: 1.2, rotate: 5 }}
-                          whileTap={{ scale: 0.96 }}
-                          transition={{ duration: 0.2 }}
-                        >
-                          <Link
-                            href={project.liveUrl}
-                            className="text-sm text-gray-400 hover:text-white flex items-center gap-1 transition-colors"
-                            onClick={(e) => e.stopPropagation()}
-                          >
-                            <ExternalLink className="w-4 h-4" />
-                          </Link>
-                        </motion.div>
-                        <motion.div
-                          whileHover={{ scale: 1.2, rotate: -5 }}
-                          whileTap={{ scale: 0.96 }}
-                          transition={{ duration: 0.2 }}
-                        >
-                          <Link
-                            href={project.githubUrl}
-                            className="text-sm text-gray-400 hover:text-white flex items-center gap-1 transition-colors"
-                            onClick={(e) => e.stopPropagation()}
-                          >
-                            <Github className="w-4 h-4" />
-                          </Link>
-                        </motion.div>
-                      </div>
-                    </CardHeader>
-                  </Card>
+                        <ExternalLink
+                          style={{ width: "14px", height: "14px" }}
+                        />
+                        Live
+                      </Link>
+                      <Link
+                        href={project.githubUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="no-underline inline-flex items-center"
+                        style={{
+                          fontSize: "14px",
+                          fontWeight: 500,
+                          color: "#615d59",
+                          gap: "6px",
+                          textDecoration: "none",
+                          transition: "color 0.2s ease",
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.color = "#0075de";
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.color = "#615d59";
+                        }}
+                      >
+                        <Github style={{ width: "14px", height: "14px" }} />
+                        Source
+                      </Link>
+                    </div>
+                  </div>
                 </motion.div>
-              </Link>
-            </motion.div>
-          ))}
-        </div>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
       </div>
     </section>
   );

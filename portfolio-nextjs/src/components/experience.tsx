@@ -1,24 +1,49 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
-import { Badge } from "@/components/ui/badge";
-import { EASE, STAGGER } from "@/lib/motion-variants";
+import { fadeUp, staggerContainer, EASE, STAGGER } from "@/lib/motion-variants";
+import {
+  SiVuedotjs,
+  SiNuxtdotjs,
+  SiTypescript,
+  SiTailwindcss,
+  SiReact,
+  SiRedux,
+  SiSass,
+  SiNextdotjs,
+  SiVuetify,
+} from "react-icons/si";
+import React from "react";
+
+const techIcons: Record<string, React.ReactNode> = {
+  VueJS: <SiVuedotjs />,
+  NuxtJS: <SiNuxtdotjs />,
+  TypeScript: <SiTypescript />,
+  "Tailwind CSS": <SiTailwindcss />,
+  React: <SiReact />,
+  Redux: <SiRedux />,
+  Sass: <SiSass />,
+  NextJS: <SiNextdotjs />,
+  Vuetify: <SiVuetify />,
+  Pinia: <SiVuedotjs />, // Fallback to Vue logo
+};
 
 /**
- * Experience Section
+ * Experience Section — DESIGN.md compliant
  *
- * Features:
- * - Smooth scroll-triggered animations
- * - Staggered badge reveals
- * - Hover effects on badges
- * - Line-by-line description fade-in
+ * - White background
+ * - Timeline layout: date column + content column
+ * - Caption text for period, card title for role
+ * - Notion Blue for company links
+ * - Pill badges for tech stack with icons
+ * - Whisper border dividers
  */
 export default function Experience() {
   const shouldReduceMotion = useReducedMotion();
 
   const experiences = [
     {
-      period: "JUNE 2025 — PRESENT",
+      period: "Jun 2025 — Present",
       role: "Frontend Developer",
       company: "Smart Digitech",
       description: [
@@ -39,22 +64,14 @@ export default function Experience() {
       ],
     },
     {
-      period: "NOV 2024 — JUL 2025",
+      period: "Nov 2024 — Jul 2025",
       role: "Frontend Developer",
       company: "PloggVN",
       description: [
-        "As a Frontend Developer at PloggVN, I am responsible for developing and optimizing user interfaces for web applications, ensuring smooth user experiences and high performance. Key responsibilities include:",
-        "Inservio Project:",
-        "• Designing and implementing user interfaces with a focus on UI/UX.",
-        "• Ensuring responsive design for compatibility across multiple devices.",
-        "• Adding new features based on product requirements.",
-        "• Fixing bugs and optimizing performance.",
-        "• Conducting quality assurance (QA) testing to ensure stability.",
-        "Synode Project:",
-        "• Developing and optimizing the frontend interface.",
-        "• Fixing bugs and improving performance.",
-        "• Performing QA testing to maintain product consistency.",
-        "• Integrating the frontend with the backend, collaborating with backend developers for seamless data synchronization.",
+        "Developed and optimized user interfaces for web applications, ensuring smooth user experiences and high performance.",
+        "Designed and implemented interfaces with a focus on UI/UX and responsive design across multiple devices.",
+        "Built features, fixed bugs, and conducted QA testing across Inservio and Synode projects.",
+        "Integrated frontend with backend APIs, collaborating with backend developers for seamless data synchronization.",
       ],
       technologies: [
         "VueJS",
@@ -68,65 +85,118 @@ export default function Experience() {
   ];
 
   return (
-    <section id="experience" className="py-20 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-6xl mx-auto">
-        {/* Section Title */}
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+    <section
+      id="experience"
+      className="section-white section-padding"
+      style={{ paddingLeft: "1.5rem", paddingRight: "1.5rem" }}
+    >
+      <div className="container-content">
+        <motion.div
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6, ease: EASE }}
-          className="text-3xl sm:text-4xl font-bold mb-12"
         >
-          Professional Experience
-        </motion.h2>
+          {/* Section Heading */}
+          <motion.h2
+            variants={fadeUp}
+            className="text-section-heading"
+            style={{ marginBottom: "48px" }}
+          >
+            Experience
+          </motion.h2>
 
-        {/* Experience List */}
-        <div className="space-y-12">
-          {experiences.map((exp, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{
-                duration: 0.6,
-                delay: index * 0.2,
-                ease: EASE,
-              }}
-              className="grid md:grid-cols-4 gap-6 pb-12 border-b border-white/10 last:border-0 group"
-            >
-              {/* Left: Date */}
+          {/* Experience List */}
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "0px",
+            }}
+          >
+            {experiences.map((exp, index) => (
               <motion.div
-                className="md:col-span-1"
-                whileHover={{ x: 4 }}
-                transition={{ duration: 0.2 }}
+                key={index}
+                variants={fadeUp}
+                transition={{ delay: index * 0.15 }}
+                className="grid grid-cols-1 md:grid-cols-4"
+                style={{
+                  gap: "24px",
+                  paddingBottom: "40px",
+                  marginBottom: "40px",
+                  borderBottom:
+                    index < experiences.length - 1
+                      ? "1px solid rgba(0, 0, 0, 0.1)"
+                      : "none",
+                }}
               >
-                <p className="text-sm text-gray-500 font-medium group-hover:text-gray-400 transition-colors">
-                  {exp.period}
-                </p>
-              </motion.div>
-
-              {/* Right: Content */}
-              <div className="md:col-span-3 space-y-4">
-                <div className="space-y-3">
-                  <motion.h3
-                    className="text-xl font-semibold mb-1"
-                    whileHover={{ x: 4 }}
-                    transition={{ duration: 0.2 }}
+                {/* Left: Date */}
+                <div className="md:col-span-1">
+                  <p
+                    style={{
+                      fontSize: "14px",
+                      fontWeight: 500,
+                      lineHeight: 1.43,
+                      color: "#a39e98",
+                      whiteSpace: "nowrap",
+                    }}
                   >
-                    {exp.role}{" "}
-                    <span className="inline-flex items-center gap-2">
-                      <span className="text-blue-500">@</span>
-                      <span className="text-blue-500 hover:underline decoration-blue-500/50 underline-offset-4 transition-all">
+                    {exp.period}
+                  </p>
+                </div>
+
+                {/* Right: Content */}
+                <div
+                  className="md:col-span-3"
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "16px",
+                  }}
+                >
+                  {/* Role + Company */}
+                  <div>
+                    <h4
+                      style={{
+                        fontSize: "22px",
+                        fontWeight: 700,
+                        lineHeight: 1.27,
+                        letterSpacing: "-0.25px",
+                        color: "rgba(0, 0, 0, 0.95)",
+                      }}
+                    >
+                      {exp.role}{" "}
+                      <span style={{ color: "#a39e98", fontWeight: 400 }}>
+                        @
+                      </span>{" "}
+                      <span
+                        style={{
+                          color: "#0075de",
+                          fontWeight: 700,
+                          cursor: "pointer",
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.textDecoration = "underline";
+                          e.currentTarget.style.textDecorationColor =
+                            "rgba(0, 117, 222, 0.4)";
+                          e.currentTarget.style.textUnderlineOffset = "4px";
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.textDecoration = "none";
+                        }}
+                      >
                         {exp.company}
                       </span>
-                    </span>
-                  </motion.h3>
+                    </h4>
+                  </div>
 
-                  {/* Description lines with stagger */}
+                  {/* Description */}
                   <motion.div
-                    className="text-gray-400 leading-relaxed space-y-2"
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: "8px",
+                    }}
                     initial="hidden"
                     whileInView="visible"
                     viewport={{ once: true }}
@@ -142,9 +212,14 @@ export default function Experience() {
                     {exp.description.map((line, lineIndex) => (
                       <motion.p
                         key={lineIndex}
-                        className={line.startsWith("•") ? "ml-4" : ""}
+                        style={{
+                          fontSize: "16px",
+                          fontWeight: 400,
+                          lineHeight: 1.5,
+                          color: "#615d59",
+                        }}
                         variants={{
-                          hidden: { opacity: 0, x: -10 },
+                          hidden: { opacity: 0, x: -8 },
                           visible: {
                             opacity: 1,
                             x: 0,
@@ -159,64 +234,45 @@ export default function Experience() {
                       </motion.p>
                     ))}
                   </motion.div>
-                </div>
 
-                {/* Tech Stack with stagger */}
-                <motion.div
-                  className="flex flex-wrap gap-2"
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true }}
-                  variants={{
-                    hidden: {},
-                    visible: {
-                      transition: {
-                        staggerChildren: STAGGER / 2,
-                        delayChildren: 0.2,
-                      },
-                    },
-                  }}
-                >
-                  {exp.technologies.map((tech, techIndex) => (
-                    <motion.div
-                      key={techIndex}
-                      variants={{
-                        hidden: { scale: 0, opacity: 0 },
-                        visible: {
-                          scale: 1,
-                          opacity: 1,
-                          transition: {
-                            duration: 0.3,
-                            ease: EASE,
-                          },
-                        },
-                      }}
-                    >
-                      <motion.div
+                  {/* Tech Badges */}
+                  <div className="flex flex-wrap" style={{ gap: "6px" }}>
+                    {exp.technologies.map((tech, techIndex) => (
+                      <motion.span
+                        key={techIndex}
+                        style={{
+                          display: "inline-flex",
+                          alignItems: "center",
+                          gap: "6px",
+                          backgroundColor: "#f2f9ff",
+                          color: "#097fe8",
+                          fontSize: "12px",
+                          fontWeight: 600,
+                          lineHeight: 1.33,
+                          letterSpacing: "0.125px",
+                          padding: "4px 8px",
+                          borderRadius: "9999px",
+                          cursor: "default",
+                        }}
                         whileHover={
-                          !shouldReduceMotion
-                            ? {
-                                scale: 1.1,
-                                y: -2,
-                              }
-                            : {}
+                          !shouldReduceMotion ? { scale: 1.08 } : {}
                         }
-                        transition={{ duration: 0.2 }}
+                        transition={{ duration: 0.15 }}
                       >
-                        <Badge
-                          variant="outline"
-                          className="text-xs bg-white/5 border-white/10 text-gray-300 hover:bg-white/10 hover:border-white/20 transition-colors cursor-default"
-                        >
-                          {tech}
-                        </Badge>
-                      </motion.div>
-                    </motion.div>
-                  ))}
-                </motion.div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
+                        {techIcons[tech] && (
+                          <span style={{ fontSize: "14px", display: "flex", alignItems: "center" }}>
+                            {techIcons[tech]}
+                          </span>
+                        )}
+                        {tech}
+                      </motion.span>
+                    ))}
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
       </div>
     </section>
   );

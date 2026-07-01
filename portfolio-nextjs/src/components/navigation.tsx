@@ -1,138 +1,84 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useScroll, useMotionValueEvent } from "framer-motion";
 import { EASE } from "@/lib/motion-variants";
 
-/**
- * Navigation — DESIGN.md compliant
- *
- * - Clean horizontal nav on white background
- * - NotionInter 15px weight 600 for links
- * - Notion Blue pill CTA right-aligned
- * - Scrolled: white bg + whisper border bottom
- * - Mobile: hamburger collapse
- */
+const navItems = [
+  { href: "#about", label: "About" },
+  { href: "#projects", label: "Projects" },
+  { href: "#skills", label: "Skills" },
+  { href: "#experience", label: "Experience" },
+  { href: "#contact", label: "Contact" },
+];
+
+const sectionIds = ["#home", ...navItems.map((item) => item.href)];
+
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("#home");
+  const { scrollY } = useScroll();
+
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    setScrolled(latest > 50);
+  });
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
+    const elements = sectionIds
+      .map((id) => document.querySelector(id))
+      .filter((el): el is Element => Boolean(el));
 
-      const sections = [
-        "#home",
-        "#about",
-        "#projects",
-        "#skills",
-        "#experience",
-        "#contact",
-      ];
-      for (const section of sections) {
-        const element = document.querySelector(section);
-        if (element) {
-          const rect = element.getBoundingClientRect();
-          if (rect.top <= 100 && rect.bottom >= 100) {
-            setActiveSection(section);
-            break;
-          }
-        }
-      }
-    };
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries.filter((entry) => entry.isIntersecting);
+        if (visible.length === 0) return;
+        const topMost = visible.reduce((a, b) =>
+          a.boundingClientRect.top < b.boundingClientRect.top ? a : b
+        );
+        setActiveSection(`#${topMost.target.id}`);
+      },
+      { rootMargin: "-40% 0px -55% 0px", threshold: 0 }
+    );
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    elements.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
   }, []);
-
-  const navItems = [
-    { href: "#about", label: "About" },
-    { href: "#projects", label: "Projects" },
-    { href: "#skills", label: "Skills" },
-    { href: "#experience", label: "Experience" },
-    { href: "#contact", label: "Contact" },
-  ];
 
   return (
     <motion.nav
-      id="nav"
-      className="fixed top-0 w-full z-50 transition-all duration-300"
+      className="fixed top-0 z-50 w-full transition-colors duration-300"
       style={{
-        backgroundColor: scrolled ? "rgba(255, 255, 255, 0.95)" : "transparent",
+        backgroundColor: scrolled ? "rgba(10, 10, 10, 0.92)" : "transparent",
         backdropFilter: scrolled ? "blur(12px)" : "none",
-        borderBottom: scrolled ? "1px solid rgba(0, 0, 0, 0.1)" : "1px solid transparent",
+        borderBottom: scrolled ? "1px solid var(--color-border)" : "1px solid transparent",
       }}
       initial={{ y: -80 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.6, ease: EASE }}
     >
       <div className="container-content">
-        <div className="flex justify-between items-center" style={{ height: "64px" }}>
-          {/* Logo / Name */}
-          <Link
-            href="#home"
-            className="no-underline"
-            style={{
-              fontSize: "15px",
-              fontWeight: 600,
-              color: "rgba(0, 0, 0, 0.95)",
-              textDecoration: "none",
-              lineHeight: 1.33,
-            }}
-          >
-            <motion.span
-              className="inline-block"
-              whileHover={{ x: 2 }}
-              transition={{ duration: 0.2 }}
-              style={{ textDecoration: "none" }}
-            >
-              Bui Trung Hieu
-            </motion.span>
+        <div className="flex h-16 items-center justify-between">
+          <Link href="#home" className="text-mono text-sm font-semibold no-underline">
+            Bui Trung Hieu
           </Link>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center" style={{ gap: "32px" }}>
+          <div className="hidden items-center gap-8 md:flex">
             {navItems.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
-                className="relative no-underline"
-                style={{
-                  fontSize: "15px",
-                  fontWeight: activeSection === item.href ? 600 : 500,
-                  color:
-                    activeSection === item.href
-                      ? "rgba(0, 0, 0, 0.95)"
-                      : "#615d59",
-                  textDecoration: "none",
-                  lineHeight: 1.33,
-                  transition: "color 0.2s ease",
-                  padding: "4px 0",
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.color = "rgba(0, 0, 0, 0.95)";
-                }}
-                onMouseLeave={(e) => {
-                  if (activeSection !== item.href) {
-                    e.currentTarget.style.color = "#615d59";
-                  }
-                }}
+                className={`text-mono relative py-1 text-sm no-underline transition-colors ${
+                  activeSection === item.href ? "text-fg" : "text-secondary hover:text-fg"
+                }`}
               >
                 {item.label}
                 {activeSection === item.href && (
                   <motion.div
                     layoutId="activeNav"
-                    style={{
-                      position: "absolute",
-                      bottom: 0,
-                      left: 0,
-                      right: 0,
-                      height: "2px",
-                      backgroundColor: "#0075de",
-                      borderRadius: "1px",
-                    }}
+                    className="absolute bottom-0 left-0 right-0 h-[2px]"
+                    style={{ backgroundColor: "var(--color-accent)" }}
                     transition={{ duration: 0.4, ease: EASE }}
                   />
                 )}
@@ -140,143 +86,64 @@ export default function Navigation() {
             ))}
           </div>
 
-          {/* CTA Button */}
           <div className="hidden md:block">
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.9 }}
-              transition={{ duration: 0.2 }}
+            <Link
+              href="#contact"
+              className="text-mono inline-flex items-center border-technical px-4 py-2 text-sm font-semibold no-underline transition-colors hover:border-[var(--color-accent)] hover:text-accent"
             >
-              <Link
-                href="#contact"
-                className="no-underline"
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  backgroundColor: "#0075de",
-                  color: "#ffffff",
-                  fontSize: "15px",
-                  fontWeight: 600,
-                  lineHeight: 1.33,
-                  padding: "8px 16px",
-                  borderRadius: "4px",
-                  border: "1px solid transparent",
-                  textDecoration: "none",
-                  transition: "background-color 0.2s ease",
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor = "#005bab";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.backgroundColor = "#0075de";
-                }}
-              >
-                Resume
-              </Link>
-            </motion.div>
+              Resume
+            </Link>
           </div>
 
-          {/* Hamburger Menu */}
-          <motion.button
-            className="md:hidden relative flex items-center justify-center"
-            style={{
-              width: "40px",
-              height: "40px",
-              background: "transparent",
-              border: "none",
-              cursor: "pointer",
-            }}
+          <button
+            className="relative flex h-10 w-10 items-center justify-center md:hidden"
             onClick={() => setIsOpen(!isOpen)}
-            whileTap={{ scale: 0.96 }}
             aria-label="Toggle menu"
           >
-            <div className="flex flex-col justify-between" style={{ width: "22px", height: "16px" }}>
+            <div className="flex h-4 w-[22px] flex-col justify-between">
               <motion.span
-                style={{
-                  width: "100%",
-                  height: "2px",
-                  backgroundColor: "rgba(0, 0, 0, 0.95)",
-                  display: "block",
-                  borderRadius: "1px",
-                }}
+                className="block h-[2px] w-full"
+                style={{ backgroundColor: "var(--color-fg)" }}
                 animate={isOpen ? { rotate: 45, y: 7 } : { rotate: 0, y: 0 }}
                 transition={{ duration: 0.3, ease: EASE }}
               />
               <motion.span
-                style={{
-                  width: "100%",
-                  height: "2px",
-                  backgroundColor: "rgba(0, 0, 0, 0.95)",
-                  display: "block",
-                  borderRadius: "1px",
-                }}
+                className="block h-[2px] w-full"
+                style={{ backgroundColor: "var(--color-fg)" }}
                 animate={isOpen ? { opacity: 0 } : { opacity: 1 }}
                 transition={{ duration: 0.2 }}
               />
               <motion.span
-                style={{
-                  width: "100%",
-                  height: "2px",
-                  backgroundColor: "rgba(0, 0, 0, 0.95)",
-                  display: "block",
-                  borderRadius: "1px",
-                }}
+                className="block h-[2px] w-full"
+                style={{ backgroundColor: "var(--color-fg)" }}
                 animate={isOpen ? { rotate: -45, y: -7 } : { rotate: 0, y: 0 }}
                 transition={{ duration: 0.3, ease: EASE }}
               />
             </div>
-          </motion.button>
+          </button>
         </div>
 
-        {/* Mobile Menu */}
         <AnimatePresence>
           {isOpen && (
             <motion.div
-              className="md:hidden overflow-hidden"
+              className="overflow-hidden md:hidden"
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.3, ease: EASE }}
             >
-              <div
-                style={{
-                  paddingTop: "8px",
-                  paddingBottom: "16px",
-                  borderTop: "1px solid rgba(0, 0, 0, 0.1)",
-                }}
-              >
+              <div className="border-t-technical pb-4 pt-2">
                 {navItems.map((item, index) => (
                   <motion.div
                     key={item.href}
                     initial={{ opacity: 0, x: -16 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{
-                      duration: 0.3,
-                      delay: index * 0.05,
-                      ease: EASE,
-                    }}
+                    transition={{ duration: 0.3, delay: index * 0.05, ease: EASE }}
                   >
                     <Link
                       href={item.href}
-                      className="no-underline block"
-                      style={{
-                        fontSize: "15px",
-                        fontWeight: 500,
-                        color: "#615d59",
-                        padding: "10px 12px",
-                        borderRadius: "5px",
-                        textDecoration: "none",
-                        transition: "background-color 0.2s ease, color 0.2s ease",
-                      }}
+                      className="text-mono block px-3 py-2.5 text-sm text-secondary no-underline transition-colors hover:text-fg"
                       onClick={() => setIsOpen(false)}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.backgroundColor = "#f6f5f4";
-                        e.currentTarget.style.color = "rgba(0, 0, 0, 0.95)";
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.backgroundColor = "transparent";
-                        e.currentTarget.style.color = "#615d59";
-                      }}
                     >
                       {item.label}
                     </Link>
@@ -285,25 +152,12 @@ export default function Navigation() {
                 <motion.div
                   initial={{ opacity: 0, x: -16 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{
-                    duration: 0.3,
-                    delay: navItems.length * 0.05,
-                    ease: EASE,
-                  }}
-                  style={{ padding: "8px 12px 0" }}
+                  transition={{ duration: 0.3, delay: navItems.length * 0.05, ease: EASE }}
+                  className="px-3 pt-2"
                 >
                   <Link
                     href="#contact"
-                    className="no-underline block text-center"
-                    style={{
-                      backgroundColor: "#0075de",
-                      color: "#ffffff",
-                      fontSize: "15px",
-                      fontWeight: 600,
-                      padding: "10px 16px",
-                      borderRadius: "4px",
-                      textDecoration: "none",
-                    }}
+                    className="text-mono block border-technical px-4 py-2.5 text-center text-sm font-semibold no-underline"
                     onClick={() => setIsOpen(false)}
                   >
                     Resume

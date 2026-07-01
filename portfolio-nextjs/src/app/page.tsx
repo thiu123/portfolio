@@ -13,20 +13,14 @@ import Navigation from "@/components/navigation";
 export default function Home() {
   return (
     <LazyMotion features={domAnimation}>
-      <div className="min-h-screen bg-white">
+      <div className="min-h-screen">
         <Navigation />
         <main>
-          {/* White bg */}
           <Hero />
-          {/* Warm white bg */}
           <About />
-          {/* White bg */}
           <Projects />
-          {/* Warm white bg */}
           <Skills />
-          {/* White bg */}
           <Experience />
-          {/* Warm white bg */}
           <Contact />
         </main>
         <Footer />

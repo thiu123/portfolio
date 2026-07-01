@@ -1,7 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { fadeUp, staggerContainer, EASE } from "@/lib/motion-variants";
+import { fadeUp, staggerContainer } from "@/lib/motion-variants";
+import { ScrambleText } from "@/components/scramble-text";
 import {
   SiReact,
   SiNextdotjs,
@@ -23,16 +24,6 @@ import { FaGitAlt } from "react-icons/fa";
 import { TbApi } from "react-icons/tb";
 import { MdDevices } from "react-icons/md";
 
-/**
- * Skills Section — DESIGN.md compliant
- *
- * - Warm white background
- * - Structured into 3 categories (from SKILL.md context)
- * - Each category in a card (white bg, whisper border, 12px radius)
- * - Skills as pill badges with icons
- * - Scannable for recruiters — not a logo marquee
- */
-
 interface SkillItem {
   name: string;
   icon: React.ReactNode;
@@ -40,26 +31,23 @@ interface SkillItem {
 
 interface SkillCategory {
   title: string;
-  description: string;
   skills: SkillItem[];
 }
 
 const skillCategories: SkillCategory[] = [
   {
     title: "Frameworks & Libraries",
-    description: "Production-grade application frameworks I build with daily",
     skills: [
       { name: "React", icon: <SiReact /> },
       { name: "Next.js", icon: <SiNextdotjs /> },
       { name: "Vue.js", icon: <SiVuedotjs /> },
       { name: "Nuxt.js", icon: <SiNuxtdotjs /> },
       { name: "Redux", icon: <SiRedux /> },
-      { name: "Pinia", icon: <SiVuedotjs /> }, // Fallback to Vue icon for Pinia if SiPinia is unavailable
+      { name: "Pinia", icon: <SiVuedotjs /> },
     ],
   },
   {
     title: "Languages & Styling",
-    description: "Core languages and CSS systems for modern interfaces",
     skills: [
       { name: "TypeScript", icon: <SiTypescript /> },
       { name: "JavaScript", icon: <SiJavascript /> },
@@ -72,9 +60,8 @@ const skillCategories: SkillCategory[] = [
   },
   {
     title: "Tools & UI Systems",
-    description: "Component libraries, design systems, and development tools",
     skills: [
-      { name: "Shadcn/ui", icon: <SiReact /> }, // Fallback for Shadcn
+      { name: "Shadcn/ui", icon: <SiReact /> },
       { name: "Ant Design", icon: <SiAntdesign /> },
       { name: "Vuetify", icon: <SiVuetify /> },
       { name: "Framer Motion", icon: <SiFramer /> },
@@ -87,11 +74,7 @@ const skillCategories: SkillCategory[] = [
 
 export default function Skills() {
   return (
-    <section
-      id="skills"
-      className="section-padding"
-      style={{ paddingLeft: "1.5rem", paddingRight: "1.5rem" }}
-    >
+    <section id="skills" className="section-padding border-b-technical">
       <div className="container-content">
         <motion.div
           variants={staggerContainer}
@@ -99,117 +82,34 @@ export default function Skills() {
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
         >
-          {/* Section Heading */}
-          <motion.div variants={fadeUp} style={{ marginBottom: "48px" }}>
-            <h2 className="text-section-heading" style={{ marginBottom: "12px" }}>
-              Skills & Technologies
-            </h2>
-            <p
-              style={{
-                fontSize: "20px",
-                fontWeight: 600,
-                lineHeight: 1.4,
-                letterSpacing: "-0.125px",
-                color: "#615d59",
-                maxWidth: "560px",
-              }}
-            >
-              The tools and technologies I use to build modern web applications
+          <motion.div variants={fadeUp} className="mb-12">
+            <h2 className="text-section-heading mb-3">Skills & technologies</h2>
+            <p className="text-secondary text-body-large max-w-[46ch]">
+              The tools I use to build modern web applications
             </p>
           </motion.div>
 
-          {/* Skill Categories Grid */}
-          <div
-            className="grid grid-cols-1 md:grid-cols-3"
-            style={{ gap: "24px" }}
-          >
+          <div className="flex flex-col">
             {skillCategories.map((category, index) => (
               <motion.div
-                key={index}
+                key={category.title}
                 variants={fadeUp}
                 transition={{ delay: index * 0.1 }}
-                style={{
-                  backgroundColor: "#ffffff",
-                  border: "1px solid rgba(0, 0, 0, 0.1)",
-                  borderRadius: "12px",
-                  padding: "32px 24px",
-                  boxShadow: "var(--shadow-card)",
-                  transition: "box-shadow 0.3s ease, transform 0.3s ease",
-                }}
-                whileHover={{
-                  y: -4,
-                  transition: { duration: 0.3, ease: EASE },
-                }}
-                onMouseEnter={(e) => {
-                  (e.currentTarget as HTMLElement).style.boxShadow =
-                    "var(--shadow-card-hover)";
-                }}
-                onMouseLeave={(e) => {
-                  (e.currentTarget as HTMLElement).style.boxShadow =
-                    "var(--shadow-card)";
-                }}
+                className={`grid grid-cols-1 gap-4 py-6 md:grid-cols-4 md:gap-8 ${
+                  index > 0 ? "border-t-technical" : ""
+                }`}
               >
-                {/* Category Title */}
-                <h4
-                  style={{
-                    fontSize: "22px",
-                    fontWeight: 700,
-                    lineHeight: 1.27,
-                    letterSpacing: "-0.25px",
-                    color: "rgba(0, 0, 0, 0.95)",
-                    marginBottom: "8px",
-                  }}
-                >
-                  {category.title}
-                </h4>
+                <h4 className="text-mono-label md:col-span-1">{category.title}</h4>
 
-                {/* Category Description */}
-                <p
-                  style={{
-                    fontSize: "14px",
-                    fontWeight: 400,
-                    lineHeight: 1.43,
-                    color: "#a39e98",
-                    marginBottom: "20px",
-                  }}
-                >
-                  {category.description}
-                </p>
-
-                {/* Skill Badges */}
-                <div className="flex flex-wrap" style={{ gap: "8px" }}>
-                  {category.skills.map((skill, skillIndex) => (
-                    <motion.span
-                      key={skillIndex}
-                      style={{
-                        display: "inline-flex",
-                        alignItems: "center",
-                        gap: "6px",
-                        backgroundColor: "#f2f9ff",
-                        color: "#097fe8",
-                        fontSize: "12px",
-                        fontWeight: 600,
-                        lineHeight: 1.33,
-                        letterSpacing: "0.125px",
-                        padding: "6px 12px",
-                        borderRadius: "9999px",
-                        cursor: "default",
-                        transition: "background-color 0.2s ease",
-                      }}
-                      whileHover={{ scale: 1.05 }}
-                      transition={{ duration: 0.15 }}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.backgroundColor = "#e0f0ff";
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.backgroundColor = "#f2f9ff";
-                      }}
+                <div className="flex flex-wrap gap-2 md:col-span-3">
+                  {category.skills.map((skill) => (
+                    <span
+                      key={skill.name}
+                      className="text-mono inline-flex cursor-default items-center gap-2 border-technical px-3 py-1.5 text-xs transition-colors hover:border-[var(--color-accent)] hover:text-accent"
                     >
-                      <span style={{ fontSize: "14px", display: "flex", alignItems: "center" }}>
-                        {skill.icon}
-                      </span>
-                      {skill.name}
-                    </motion.span>
+                      <span className="flex items-center text-sm">{skill.icon}</span>
+                      <ScrambleText text={skill.name} />
+                    </span>
                   ))}
                 </div>
               </motion.div>

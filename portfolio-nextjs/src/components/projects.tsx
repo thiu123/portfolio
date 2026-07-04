@@ -6,7 +6,16 @@ import Image from "next/image";
 import Link from "next/link";
 import { fadeUp, staggerContainer } from "@/lib/motion-variants";
 import { TiltCard } from "@/components/tilt-card";
-import { SiHtml5, SiTailwindcss, SiVuedotjs, SiNuxtdotjs, SiCss3 } from "react-icons/si";
+import {
+  SiHtml5,
+  SiTailwindcss,
+  SiVuedotjs,
+  SiNuxtdotjs,
+  SiCss3,
+  SiVuetify,
+  SiExpress,
+  SiMongodb,
+} from "react-icons/si";
 import React from "react";
 
 const techIcons: Record<string, React.ReactNode> = {
@@ -15,17 +24,20 @@ const techIcons: Record<string, React.ReactNode> = {
   VueJS: <SiVuedotjs />,
   NuxtJS: <SiNuxtdotjs />,
   CSS: <SiCss3 />,
+  Vuetify: <SiVuetify />,
+  Express: <SiExpress />,
+  MongoDB: <SiMongodb />,
 };
 
 const projects = [
   {
-    title: "Food Recipes",
+    title: "Book Store Ecommerce",
     description:
-      "A recipe discovery platform that makes cooking accessible. Browse recipes, view detailed ingredients and instructions, with interactive checkbox tracking.",
-    image: "/recipes.jpg",
-    technologies: ["HTML", "TailwindCSS", "VueJS", "NuxtJS"],
-    liveUrl: "https://github.com/thiu123/food_recipes",
-    githubUrl: "https://github.com/thiu123/food_recipes",
+      "A full-stack ecommerce platform for browsing and purchasing books, with product listings, cart management, and an Express/MongoDB backend powering the storefront.",
+    image: "/book_store.png",
+    technologies: ["NuxtJS", "VueJS", "Vuetify", "Express", "MongoDB"],
+    liveUrl: "https://github.com/thiu123/project_final",
+    githubUrl: "https://github.com/thiu123/project_final",
   },
   {
     title: "Pokemon Game",
@@ -64,12 +76,12 @@ export default function Projects() {
             {projects.map((project, index) => (
               <motion.div key={project.title} variants={fadeUp} transition={{ delay: index * 0.15 }}>
                 <TiltCard className="border-technical bg-raised flex h-full flex-col overflow-hidden">
-                  <div className="relative h-[240px] overflow-hidden border-b-technical">
+                  <div className="relative h-[240px] overflow-hidden border-b-technical bg-black">
                     <Image
                       src={project.image}
                       alt={project.title}
                       fill
-                      className="object-cover grayscale transition-all duration-500 hover:grayscale-0"
+                      className="object-contain grayscale transition-all duration-500 hover:grayscale-0"
                     />
                   </div>
 
